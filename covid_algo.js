@@ -79,10 +79,10 @@ const green_rule_set = {
       arguments: ["age"]
     },
     {
-      predicate: (consiousness) => {
-        return consiousness == 1;
+      predicate: (consciousness) => {
+        return consciousness == 1;
       },
-      arguments: ["consiousness"]
+      arguments: ["consciousness"]
     },
     {
       predicate: (recent_chest_pain) => {
@@ -134,10 +134,10 @@ const orange_rule_set = {
       arguments: ["heartbeats_per_minute"]
     },
     {
-      predicate: (consiousness, alone_at_home) => {
-        return consiousness > 1 && alone_at_home;
+      predicate: (consciousness, alone_at_home) => {
+        return consciousness > 1 && alone_at_home;
       },
-      arguments: ["consiousness", "alone_at_home"]
+      arguments: ["consciousness", "alone_at_home"]
     },
     {
       predicate: (hydratation, alone_at_home) => {
@@ -224,10 +224,10 @@ const red_rule_set = {
       arguments: ["respiratory_rate_in_cycles_per_minute"]
     },
     {
-      predicate: (consiousness) => {
-        return consiousness > 2;
+      predicate: (consciousness) => {
+        return consciousness > 2;
       },
-      arguments: ["consiousness"]
+      arguments: ["consciousness"]
     },
     {
       predicate: (spo2) => {
@@ -254,10 +254,10 @@ const red_rule_set = {
       arguments: ["breathing_difficulty_borg_scale", "recent_chest_pain"]
     },
     {
-      predicate: (consiousness, alone_at_home) => {
-        return consiousness > 1 && alone_at_home;
+      predicate: (consciousness, alone_at_home) => {
+        return consciousness > 1 && alone_at_home;
       },
-      arguments: ["consiousness", "alone_at_home"]
+      arguments: ["consciousness", "alone_at_home"]
     }
   ]
 };
@@ -362,7 +362,7 @@ const patient_1 = {
     heartbeats_per_minute: 92,
     respiratory_rate_in_cycles_per_minute: 20,
     spo2: 92,
-    consiousness: 1,
+    consciousness: 1,
     hydratation: true,
     digestive_disorders: false,
     recent_cold_chill: false,
