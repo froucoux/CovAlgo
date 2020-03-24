@@ -26,6 +26,11 @@
  * 
  */
 
+
+/*
+ * Green - stable: Covid-19 suspect patient in stable condition
+ * -> normal follow-up
+ */
 const green_rule_set = {
   category: "green",
   mode: "all",
@@ -100,6 +105,11 @@ const green_rule_set = {
   ]
 };
 
+
+/*
+ * Orange - at risk: Suspected Covid patient at risk of worsening
+ * -> increased follow-up
+ */
 const orange_rule_set = {
   category: "orange",
   mode: "any",
@@ -200,6 +210,11 @@ const orange_rule_set = {
   ]
 };
 
+
+/*
+ * Red - critical: Patient Covid severe to critical
+ * -> immediately redirected to a triage center
+ */
 const red_rule_set = {
   category: "red",
   mode: "any",
@@ -418,11 +433,10 @@ let display_evaluation = (evaluation, colored) => {
   console.log("--------------------------------------");
 }
 
+
 /*
- * Test data to validate the sets of rules.
+ * Test patients data to validate the sets of rules.
  */
-
-
 const test_data = [
   {
     name: "Patient 1",
