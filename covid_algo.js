@@ -422,25 +422,33 @@ let display_evaluation = (evaluation, colored) => {
  * Test data to validate the sets of rules.
  */
 
-const patient_1 = {
-  name: "Patient 1",
-  parameters: {
-    age: 65,
-    heavy_comorbidities_count: 0,
-    body_temperature: 38.6,
-    breathing_difficulty_borg_scale: 1.0,
-    heartbeats_per_minute: 92,
-    respiratory_rate_in_cycles_per_minute: 20,
-    spo2: 92,
-    consciousness: 1,
-    hydratation: true,
-    digestive_disorders: false,
-    recent_cold_chill: false,
-    recent_chest_pain: false,
-    anosmia_ageusia: false,
-    alone_at_home: true,
-    agreed_containment: true
-  }
-}
 
-display_evaluation(evaluate_all_sets(patient_1), true);
+const test_data = [
+  {
+    name: "Patient 1",
+    parameters: {
+      age: 65,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 92,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: true,
+      agreed_containment: true
+    }
+  }
+];
+
+
+const colored_display = true;
+
+test_data.forEach((patient) => {
+  display_evaluation(evaluate_all_sets(patient), colored_display);
+});
