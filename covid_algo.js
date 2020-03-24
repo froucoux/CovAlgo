@@ -263,9 +263,10 @@ const red_rule_set = {
 };
 
 
-// Checks the truth of a rule given the parameters of a patient
-// and complete the patient evaluation.
-// TODO : rename patient to patient_parameters.
+/*
+ * Evaluates the truth value of a rule given the parameters of a patient
+ * and complete the patient evaluation according to this value.
+ */
 let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
   let argument_names = [];
   let argument_values = [];
@@ -293,9 +294,13 @@ let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
 }
 
 
-// Verify that all the rules of a rule set are true.
+/*
+ * Evaluates all the rules of a rule set according to the parameters of
+ * a patient and complete the evaluation of the patient with the result.
+ */
 let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
   let global_truth_value;
+
   if (rule_set.mode == "all") {
     global_truth_value = true;
   } else if (rule_set.mode == "any") {
@@ -306,6 +311,7 @@ let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
       + rule_set.category + "'.");
     return process.exit(-1);
   }
+
   rule_set.rules.forEach((current_rule) => {
     let result = evaluate_rule(rule_set, current_rule, patient, patient_evaluation);
     if (rule_set.mode == "all") {
@@ -315,19 +321,19 @@ let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
     }
     patient_evaluation = result.patient_evaluation;
   });
+
   if (global_truth_value) {
     patient_evaluation.global_category = rule_set.category;
   }
+
   return patient_evaluation;
 };
 
-let evaluate_all_sets = () => {
-
-};
 
 /*
  * Initializes the evaluation of a patient with the global
- * and all categories of the parameters as "not_categorized".
+ * category and all the categories of the parameters
+ * as "not_categorized".
  */
 let initialize_evaluation = (patient) => {
   let evaluation = {
@@ -344,12 +350,25 @@ let initialize_evaluation = (patient) => {
   return evaluation;
 };
 
+
+/*
+ * Evaluates successively the rule sets corresponding to green,
+ * orange and red categories. Each successive evaluation complete
+ * additively the global patient evaluation.
+ */
+let evaluate_all_sets = (patient) => {
+  let init_eval = initialize_evaluation(patient);
+  let green_eval = evaluate_all_rules(green_rule_set, patient, init_eval);
+  let orange_eval = evaluate_all_rules(orange_rule_set, patient, green_eval);
+  return evaluate_all_rules(red_rule_set, patient, orange_eval);
+};
+
 let display_evaluation = (evaluation_name) => {
 
 }
 
 /*
- * Test data
+ * Test data to validate the sets of rules.
  */
 
 const patient_1 = {
@@ -373,10 +392,4 @@ const patient_1 = {
   }
 }
 
-let init_eval = initialize_evaluation(patient_1);
-let eval1 = evaluate_all_rules(green_rule_set, patient_1, init_eval);
-console.log(eval1);
-let eval2 = evaluate_all_rules(orange_rule_set, patient_1, eval1);
-console.log(eval2);
-let eval3 = evaluate_all_rules(red_rule_set, patient_1, eval2);
-console.log(eval3);
+console.log(evaluate_all_sets(patient_1));
