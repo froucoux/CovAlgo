@@ -62,7 +62,8 @@ const green_rule_set = {
     },
     {
       predicate: (respiratory_rate_in_cycles_per_minute) => {
-        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined') && respiratory_rate_in_cycles_per_minute <= 21;
+        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined')
+          && respiratory_rate_in_cycles_per_minute <= 21;
       },
       arguments: ["respiratory_rate_in_cycles_per_minute"]
     },
@@ -363,8 +364,58 @@ let evaluate_all_sets = (patient) => {
   return evaluate_all_rules(red_rule_set, patient, orange_eval);
 };
 
-let display_evaluation = (evaluation_name) => {
 
+/*
+ * Append an color code to the text according to the risk category.
+ * Can be disabled for terminals that do not support color codes.
+ */
+let append_color_code = (text, category, enabled) => {
+  let reset_code = "\x1b[0m";
+  if (enabled) {
+    let color_code = "";
+    switch (category) {
+      case "green":
+        color_code = "\x1b[32m";
+        break;
+      case "orange":
+        color_code = "\x1b[33m"; // only yellow seems possible
+        break;
+      case "red":
+        color_code = "\x1b[31m";
+        break;
+      default:
+        color_code = "";
+    }
+    return color_code + text + reset_code;
+  } else {
+    return text;
+  }
+};
+
+
+/*
+ * Display a colored or not version of a patient evaluation on the
+ * Javascript console.
+ * You can disable coloring by setting the colored parameter to 'false'.
+ */
+let display_evaluation = (evaluation, colored) => {
+  console.log("--------------------------------------");
+  console.log("Patient name: " + evaluation.name);
+  console.log("Global risk category: " + append_color_code(
+    evaluation.global_category,
+    evaluation.global_category,
+    colored));
+  console.log("Parameters: ");
+  for (const parameter in evaluation.evaluated_parameters) {
+    let value = evaluation.evaluated_parameters[parameter].value;
+    let category = evaluation.evaluated_parameters[parameter].category;
+    if (colored) {
+      console.log("   " + parameter + " = " + append_color_code(value, category, colored));
+    } else {
+      console.log("   " + parameter + " = " + value + " : " + category);
+    }
+  }
+  console.log("--------------------------------------");
 }
 
 /*
@@ -392,4 +443,4 @@ const patient_1 = {
   }
 }
 
-console.log(evaluate_all_sets(patient_1));
+display_evaluation(evaluate_all_sets(patient_1), true);
