@@ -439,22 +439,124 @@ let display_evaluation = (evaluation, colored) => {
  */
 const test_data = [
   {
+    // Everything is fine
     name: "Patient 1",
     parameters: {
-      age: 65,
+      age: 54,
       heavy_comorbidities_count: 0,
       body_temperature: 38.6,
       breathing_difficulty_borg_scale: 1.0,
       heartbeats_per_minute: 92,
       respiratory_rate_in_cycles_per_minute: 20,
-      spo2: 92,
+      spo2: 98,
       consciousness: 1,
       hydratation: true,
       digestive_disorders: false,
       recent_cold_chill: false,
       recent_chest_pain: false,
       anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 2",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: false,
+      digestive_disorders: true,
+      recent_cold_chill: false,
+      recent_chest_pain: true,
+      anosmia_ageusia: true,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 3",
+    parameters: {
+      age: 67,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 95,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: true,
+      recent_chest_pain: false,
+      anosmia_ageusia: true,
       alone_at_home: true,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 4",
+    parameters: {
+      age: 67,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 95,
+      consciousness: 2,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: true,
+      anosmia_ageusia: true,
+      alone_at_home: true,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 5",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 3,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: true,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: true,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 6",
+    // Check unknown data
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 3,
+      body_temperature: undefined, // Unknown
+      breathing_difficulty_borg_scale: 2.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: false,
+      digestive_disorders: true,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: true,
+      alone_at_home: false,
       agreed_containment: true
     }
   }
