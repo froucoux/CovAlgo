@@ -289,7 +289,7 @@ let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
 
   current_rule.arguments.forEach(argument => {
     if (patient.parameters.hasOwnProperty(argument)) {
-      let argument_value = patient.parameters[argument]; // TODO : check if present
+      let argument_value = patient.parameters[argument];
       argument_values.push(argument_value);
       argument_names.push(argument);
     } else {
@@ -423,6 +423,9 @@ let display_evaluation = (evaluation, colored) => {
   console.log("Parameters: ");
   for (const parameter in evaluation.evaluated_parameters) {
     let value = evaluation.evaluated_parameters[parameter].value;
+    if (typeof value == 'undefined') {
+      value = "not reported";
+    }
     let category = evaluation.evaluated_parameters[parameter].category;
     if (colored) {
       console.log("   " + parameter + " = " + append_color_code(value, category, colored));
