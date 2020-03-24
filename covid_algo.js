@@ -171,13 +171,16 @@ const orange_rule_set = {
     },
     {
       predicate: (respiratory_rate_in_cycles_per_minute) => {
-        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined') && respiratory_rate_in_cycles_per_minute >= 22;
+        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined')
+          && respiratory_rate_in_cycles_per_minute >= 22;
       },
       arguments: ["respiratory_rate_in_cycles_per_minute"]
     },
     {
       predicate: (body_temperature, breathing_difficulty_borg_scale) => {
-        return (typeof body_temperature !== 'undefined') && body_temperature >= 39.1 && breathing_difficulty_borg_scale >= 2.0;
+        return (typeof body_temperature !== 'undefined')
+          && body_temperature >= 39.1
+          && breathing_difficulty_borg_scale >= 2.0;
       },
       arguments: ["body_temperature", "breathing_difficulty_borg_scale"]
     },
@@ -214,7 +217,9 @@ const red_rule_set = {
     },
     {
       predicate: (respiratory_rate_in_cycles_per_minute) => {
-        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined') && respiratory_rate_in_cycles_per_minute >= 25 || respiratory_rate_in_cycles_per_minute <= 8;
+        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined')
+          && respiratory_rate_in_cycles_per_minute >= 25
+          || respiratory_rate_in_cycles_per_minute <= 8;
       },
       arguments: ["respiratory_rate_in_cycles_per_minute"]
     },
@@ -264,11 +269,19 @@ const red_rule_set = {
 let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
   let argument_names = [];
   let argument_values = [];
+
   current_rule.arguments.forEach(argument => {
-    let argument_value = patient.parameters[argument]; // TODO : check if present
-    argument_values.push(argument_value);
-    argument_names.push(argument);
+    if (patient.parameters.hasOwnProperty(argument)) {
+      let argument_value = patient.parameters[argument]; // TODO : check if present
+      argument_values.push(argument_value);
+      argument_names.push(argument);
+    } else {
+      console.log("Parameter '" + argument + "' not found for patient '"
+        + patient.name + "'.");
+      return process.exit(-1);
+    }
   });
+
   let truth_result = current_rule.predicate(...argument_values);
   if (truth_result) {
     argument_names.forEach((name, idx) => {
