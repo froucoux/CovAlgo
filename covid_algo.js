@@ -562,10 +562,180 @@ const test_data = [
       alone_at_home: false,
       agreed_containment: true
     }
+  },
+  {
+    name: "Patient 7",
+    parameters: {
+      age: 68,
+      heavy_comorbidities_count: 3,
+      body_temperature: 39.4,
+      breathing_difficulty_borg_scale: 4.0,
+      heartbeats_per_minute: 118,
+      respiratory_rate_in_cycles_per_minute: 22,
+      spo2: 94,
+      consciousness: 2,
+      hydratation: false,
+      digestive_disorders: true,
+      recent_cold_chill: true,
+      recent_chest_pain: false,
+      anosmia_ageusia: true,
+      alone_at_home: false,
+      agreed_containment: false
+    }
+  },
+  {
+    name: "Patient 8",
+    // Effects of loneliness at home
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 39.6,
+      breathing_difficulty_borg_scale: 2.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 2,
+      hydratation: false,
+      digestive_disorders: true,
+      recent_cold_chill: true,
+      recent_chest_pain: false,
+      anosmia_ageusia: true,
+      alone_at_home: true,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 9",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: undefined,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: true,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 10",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 40.1,
+      breathing_difficulty_borg_scale: 6.0,
+      heartbeats_per_minute: 135,
+      respiratory_rate_in_cycles_per_minute: 26,
+      spo2: 92,
+      consciousness: 3,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 11",
+    // too slow respiratory rate
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 7,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 12",
+    // too low spo2
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 91,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 13",
+    // alone ageing patient with difficulties to breath
+    parameters: {
+      age: 68,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 3.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: true,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 14",
+    // chest pain with difficulties to breath
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 3.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: true,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
   }
+  // !!! analysis of two records to detect high_breathing_difficulty_borg_scale_variation
+  // yet to be implemented.
 ];
 
 
+/*
+ * Main code
+ */
 const colored_display = true;
 
 test_data.forEach((patient) => {
