@@ -288,7 +288,10 @@ let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
   } else if (rule_set.mode == "any") {
     global_truth_value = false;
   } else {
-    console.log("Unknow rule evaluation mode:" + rule_set.mode);
+    console.log("Unknow rule evaluation mode '"
+      + rule_set.mode + "' in rule set of category '"
+      + rule_set.category + "'.");
+    return process.exit(-1);
   }
   rule_set.rules.forEach((current_rule) => {
     let result = evaluate_rule(rule_set, current_rule, patient, patient_evaluation);
@@ -296,13 +299,11 @@ let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
       global_truth_value = global_truth_value && result.truth_result;
     } else if (rule_set.mode == "any") {
       global_truth_value = global_truth_value || result.truth_result;
-    } else {
-      console.log("Unknow rule evaluation mode:" + rule_set.mode);
     }
     patient_evaluation = result.patient_evaluation;
   });
   if (global_truth_value) {
-    patient_evaluation.category = rule_set.category;
+    patient_evaluation.global_category = rule_set.category;
   }
   return patient_evaluation;
 };
@@ -318,7 +319,7 @@ let evaluate_all_sets = () => {
 let initialize_evaluation = (patient) => {
   let evaluation = {
     name: patient.name,
-    category: "not_categorized",
+    global_category: "not_categorized",
     evaluated_parameters: {}
   }
   for (const parameter_name in patient.parameters) {
