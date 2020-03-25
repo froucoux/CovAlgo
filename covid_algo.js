@@ -601,7 +601,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 4",
+    name: "Patient 4 : quelques paramètres oranges",
     parameters: {
       age: 67,
       heavy_comorbidities_count: 0,
@@ -621,10 +621,10 @@ const test_data = [
     }
   },
   {
-    name: "Patient 5",
+    name: "Patient 5 : présence d'au moins unecomorbidité lourde",
     parameters: {
       age: 54,
-      heavy_comorbidities_count: 3,
+      heavy_comorbidities_count: 1,
       body_temperature: 38.6,
       breathing_difficulty_borg_scale: 1.0,
       heartbeats_per_minute: 92,
@@ -641,7 +641,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 6",
+    name: "Patient 6 : non catégorisable car absence de mesure de t° malgré une majorité de bon paramètres",
     // Check unknown data
     parameters: {
       age: 54,
@@ -662,7 +662,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 7",
+    name: "Patient 7 : exemple de paramètres de niveau orange",
     parameters: {
       age: 68,
       heavy_comorbidities_count: 3,
@@ -682,8 +682,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 8",
-    // Effects of loneliness at home
+    name: "Patient 8 : seul à domicile avec certains paramètres dégradés",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -703,7 +702,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 9",
+    name: "Patient 9 : frissons ces dernières 12 heures sans mesure de la température",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -723,7 +722,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 10",
+    name: "Patient 10 : paramètres en catégorie rouge",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -743,8 +742,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 11",
-    // too slow respiratory rate
+    name: "Patient 11 : fréquence respiratoire trop lente",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -764,7 +762,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 12: too low spo2",
+    name: "Patient 12 : saturation trop basse",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -784,7 +782,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 13: alone aged patient with difficulties to breath",
+    name: "Patient 13 : patient âgé, seul au domicile avec difficultés respiratoires",
     parameters: {
       age: 68,
       heavy_comorbidities_count: 0,
@@ -804,7 +802,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 14: chest pain with difficulties to breath",
+    name: "Patient 14 : difficultés respiratoires et douleurs thoraciques",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -824,7 +822,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 15: patient with a sudden worsening of dyspnea at t+12h",
+    name: "Patient 15 : patient avec un dégradation importante (> 2 paliers) de sa dyspnée sur 12h",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -845,7 +843,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 16: patient with a moderated worsening of dyspnea at t+12h",
+    name: "Patient 16 : patient avec un dégradation modérée de sa dyspnée sur 12h",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -866,7 +864,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 17: patient with a moderated worsening of dyspnea at t+12h but at critical threshold of 5.0",
+    name: "Patient 17 : patient avec un dégradation modérée de sa dyspnée sur 12h mais avec atteinte du seuil critique de Borg 5",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
