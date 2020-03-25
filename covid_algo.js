@@ -2,6 +2,8 @@
  * A proposition for a categorization algorithm for the at-home follow-up
  * of COVID-19-suspected belgian patients.
  * 
+ * Version: 0.1
+ * 
  * Copyright (c) 2020 François Roucoux
  * 
  * Contact: francois.roucoux@uclouvain.be
