@@ -147,12 +147,6 @@ const orange_rule_set = {
       arguments: ["heartbeats_per_minute"]
     },
     {
-      predicate: (consciousness, alone_at_home) => {
-        return consciousness > 1 && alone_at_home;
-      },
-      arguments: ["consciousness", "alone_at_home"]
-    },
-    {
       predicate: (hydratation, alone_at_home) => {
         return !hydratation && alone_at_home;
       },
@@ -243,7 +237,7 @@ const red_rule_set = {
     },
     {
       predicate: (consciousness) => {
-        return consciousness > 2;
+        return consciousness == 2;
       },
       arguments: ["consciousness"]
     },
@@ -611,7 +605,7 @@ const test_data = [
       heartbeats_per_minute: 92,
       respiratory_rate_in_cycles_per_minute: 20,
       spo2: 95,
-      consciousness: 2,
+      consciousness: 1,
       hydratation: true,
       digestive_disorders: false,
       recent_cold_chill: false,
@@ -672,7 +666,7 @@ const test_data = [
       heartbeats_per_minute: 118,
       respiratory_rate_in_cycles_per_minute: 22,
       spo2: 94,
-      consciousness: 2,
+      consciousness: 1,
       hydratation: false,
       digestive_disorders: true,
       recent_cold_chill: true,
@@ -693,7 +687,7 @@ const test_data = [
       heartbeats_per_minute: 92,
       respiratory_rate_in_cycles_per_minute: 20,
       spo2: 98,
-      consciousness: 2,
+      consciousness: 1,
       hydratation: false,
       digestive_disorders: true,
       recent_cold_chill: true,
@@ -733,7 +727,7 @@ const test_data = [
       heartbeats_per_minute: 135,
       respiratory_rate_in_cycles_per_minute: 26,
       spo2: 92,
-      consciousness: 3,
+      consciousness: 2,
       hydratation: true,
       digestive_disorders: false,
       recent_cold_chill: false,
@@ -886,7 +880,27 @@ const test_data = [
       alone_at_home: false,
       agreed_containment: true
     }
-  }
+  },
+  {
+    name: "Patient 18 : un niveau de conscience altéré fait basculer en catégorie rouge",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 2,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
 ];
 
 
