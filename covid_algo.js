@@ -928,12 +928,11 @@ const test_data = [
 
 
 /*
- * Main code evaluating all the patients.
+ * Main code evaluating all the test patients.
  */
-
 const colored_display = true;
-const French_translated = true;
+const french_translated = true;
 
 test_data.forEach((patient) => {
-  display_evaluation(evaluate_all_sets(patient), colored_display, French_translated);
+  display_evaluation(evaluate_all_sets(patient), colored_display, french_translated);
 });
