@@ -259,7 +259,7 @@ const red_rule_set = {
     },
     {
       predicate: (breathing_difficulty_borg_scale) => {
-        return breathing_difficulty_borg_scale > 5.0;
+        return breathing_difficulty_borg_scale >= 5.0;
       },
       arguments: ["breathing_difficulty_borg_scale"]
     },
