@@ -413,29 +413,121 @@ let append_color_code = (text, category, enabled) => {
 };
 
 
+let translate_category = (category_text, translated) => {
+  let translated_category = "";
+  if (translated) {
+    if (category_text.includes("green")) {
+      translated_category = category_text.replace("green", "vert");
+    }
+    else if (category_text.includes("orange")) {
+      translated_category = category_text.replace("orange", "orange"); // same translation
+    }
+    else if (category_text.includes("red")) {
+      translated_category = category_text.replace("red", "rouge");
+    }
+    else if (category_text.includes("true")) {
+      translated_category = category_text.replace("true", "oui");
+    }
+    else if (category_text.includes("false")) {
+      translated_category = category_text.replace("false", "non");
+    }
+    else {
+      translated_category = category_text; // no translation
+    }
+    return translated_category;
+  } else {
+    return category_text;
+  }
+};
+
+
+/*
+ * French translation of the parameters of the patient
+ */
+let translate_parameter = (parameter_text, translated) => {
+  let translated_parameter_text = "";
+  if (translated) {
+    switch (parameter_text) {
+      case "age":
+        translated_parameter_text = "âge";
+        break;
+      case "heavy_comorbidities_count":
+        translated_parameter_text = "nombre de comorbidités lourdes";
+        break;
+      case "body_temperature":
+        translated_parameter_text = "température en °C";
+        break;
+      case "previous_breathing_difficulty_borg_scale":
+        translated_parameter_text = "niveau de difficulté respiratoire (échelle de Borg) il y a 12 heures";
+        break;
+      case "breathing_difficulty_borg_scale":
+        translated_parameter_text = "niveau actuel de difficulté respiratoire (échelle de Borg)";
+        break;
+      case "heartbeats_per_minute":
+        translated_parameter_text = "fréquence cardiaque en bpm";
+        break;
+      case "respiratory_rate_in_cycles_per_minute":
+        translated_parameter_text = "fréquence respiratoire en cycles par minute";
+        break;
+      case "consciousness":
+        translated_parameter_text = "niveau de conscience";
+        break;
+      case "hydratation":
+        translated_parameter_text = "hydratation et diurèse correcte";
+        break;
+      case "spo2":
+        translated_parameter_text = "saturation en O2 en %";
+        break;
+      case "digestive_disorders":
+        translated_parameter_text = "présence de diarrhée et/ou vômissements";
+        break;
+      case "recent_cold_chill":
+        translated_parameter_text = "frissons importants ces dernières 12h";
+        break;
+      case "recent_chest_pain":
+        translated_parameter_text = "douleurs thoraciques ressenties ces dernières 12h";
+        break;
+      case "anosmia_ageusia":
+        translated_parameter_text = "anosmie et/ou agueusie";
+        break;
+      case "alone_at_home":
+        translated_parameter_text = "seul à domicile";
+        break;
+      case "agreed_containment":
+        translated_parameter_text = "confinement possible";
+        break;
+      default:
+        translated_parameter_text = parameter_text;
+    }
+    return translated_parameter_text;
+  } else {
+    return parameter_text;
+  }
+};
+
 /*
  * Display a colored or not version of a patient evaluation on the
  * Javascript console.
  * You can disable coloring by setting the colored parameter to 'false'.
  */
-let display_evaluation = (evaluation, colored) => {
+let display_evaluation = (evaluation, colored, translated) => {
   console.log("--------------------------------------");
-  console.log("Patient name: " + evaluation.name);
-  console.log("Global risk category: " + append_color_code(
+  console.log("Nom du patient: " + evaluation.name);
+  console.log("Catégorie de risque global : " + translate_category(append_color_code(
     evaluation.global_category,
     evaluation.global_category,
-    colored));
-  console.log("Parameters: ");
+    colored), translated));
+  console.log("Paramètres mesurés: ");
   for (const parameter in evaluation.evaluated_parameters) {
     let value = evaluation.evaluated_parameters[parameter].value;
     if (typeof value == 'undefined') {
-      value = "not reported";
+      value = "non-mesuré";
     }
     let category = evaluation.evaluated_parameters[parameter].category;
     if (colored) {
-      console.log("   " + parameter + " = " + append_color_code(value, category, colored));
+      console.log("   " + translate_parameter(parameter, translated) + " = " + translate_category(append_color_code(value, category, colored), translated));
     } else {
-      console.log("   " + parameter + " = " + value + " : " + category);
+      console.log("   " + translate_parameter(parameter, translated) + " = " + value + " : " + translate_category(category, translated));
     }
   }
   console.log("--------------------------------------");
@@ -552,7 +644,7 @@ const test_data = [
     // Check unknown data
     parameters: {
       age: 54,
-      heavy_comorbidities_count: 3,
+      heavy_comorbidities_count: 0,
       body_temperature: undefined, // Unknown
       breathing_difficulty_borg_scale: 2.0,
       heartbeats_per_minute: 92,
@@ -671,8 +763,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 12",
-    // too low spo2
+    name: "Patient 12: too low spo2",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -692,7 +783,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 13: alone age patient with difficulties to breath",
+    name: "Patient 13: alone aged patient with difficulties to breath",
     parameters: {
       age: 68,
       heavy_comorbidities_count: 0,
@@ -774,7 +865,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 17: patient with a moderated worsening of dyspnea at t+12h but above the treshold of 5.0",
+    name: "Patient 17: patient with a moderated worsening of dyspnea at t+12h but at critical threshold of 5.0",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -798,10 +889,12 @@ const test_data = [
 
 
 /*
- * Main code
+ * Main code evaluating all the patients.
  */
+
 const colored_display = true;
+const French_translated = true;
 
 test_data.forEach((patient) => {
-  display_evaluation(evaluate_all_sets(patient), colored_display);
+  display_evaluation(evaluate_all_sets(patient), colored_display, French_translated);
 });
