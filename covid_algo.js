@@ -268,12 +268,6 @@ const red_rule_set = {
         return breathing_difficulty_borg_scale >= 3.0 && recent_chest_pain;
       },
       arguments: ["breathing_difficulty_borg_scale", "recent_chest_pain"]
-    },
-    {
-      predicate: (consciousness, alone_at_home) => {
-        return consciousness > 1 && alone_at_home;
-      },
-      arguments: ["consciousness", "alone_at_home"]
     }
   ]
 };
