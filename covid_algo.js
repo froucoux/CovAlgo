@@ -427,6 +427,9 @@ let translate_category = (category_text, translated) => {
     else if (category_text.includes("red")) {
       translated_category = category_text.replace("red", "rouge");
     }
+    else if (category_text.includes("not_categorized")) {
+      translated_category = category_text.replace("not_categorized", "non-classifiable");
+    }
     else if (category_text.includes("true")) {
       translated_category = category_text.replace("true", "oui");
     }
