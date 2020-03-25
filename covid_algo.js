@@ -268,7 +268,14 @@ const red_rule_set = {
         return breathing_difficulty_borg_scale >= 3.0 && recent_chest_pain;
       },
       arguments: ["breathing_difficulty_borg_scale", "recent_chest_pain"]
-    }
+    },
+    {
+      // Patient with fast worsening of breathing difficulties within 12 hours
+      predicate: (previous_breathing_difficulty_borg_scale, breathing_difficulty_borg_scale) => {
+        return (breathing_difficulty_borg_scale - previous_breathing_difficulty_borg_scale) > 2.0;
+      },
+      arguments: ["previous_breathing_difficulty_borg_scale", "breathing_difficulty_borg_scale"]
+    },
   ]
 };
 
@@ -277,18 +284,22 @@ const red_rule_set = {
  * Evaluates the truth value of a rule given the parameters of a patient
  * and complete the patient evaluation according to this value.
  */
-let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
+let evaluate_rule = (rule_set, current_rule, patient_current_record, patient_evaluation) => {
   let argument_names = [];
   let argument_values = [];
 
   current_rule.arguments.forEach(argument => {
-    if (patient.parameters.hasOwnProperty(argument)) {
-      let argument_value = patient.parameters[argument];
+    if (patient_current_record.parameters.hasOwnProperty(argument)) {
+      let argument_value = patient_current_record.parameters[argument];
+      argument_values.push(argument_value);
+      argument_names.push(argument);
+    } else if (argument == "previous_breathing_difficulty_borg_scale") { // if no previous recording of Borg scale
+      let argument_value = patient_current_record.parameters["breathing_difficulty_borg_scale"]; // Consider the current value
       argument_values.push(argument_value);
       argument_names.push(argument);
     } else {
       console.log("Parameter '" + argument + "' not found for patient '"
-        + patient.name + "'.");
+        + patient_current_record.name + "'.");
       return process.exit(-1);
     }
   });
@@ -308,7 +319,7 @@ let evaluate_rule = (rule_set, current_rule, patient, patient_evaluation) => {
  * Evaluates all the rules of a rule set according to the parameters of
  * a patient and complete the evaluation of the patient with the result.
  */
-let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
+let evaluate_all_rules = (rule_set, patient_current_record, patient_evaluation) => {
   let global_truth_value;
 
   if (rule_set.mode == "all") {
@@ -323,7 +334,7 @@ let evaluate_all_rules = (rule_set, patient, patient_evaluation) => {
   }
 
   rule_set.rules.forEach((current_rule) => {
-    let result = evaluate_rule(rule_set, current_rule, patient, patient_evaluation);
+    let result = evaluate_rule(rule_set, current_rule, patient_current_record, patient_evaluation);
     if (rule_set.mode == "all") {
       global_truth_value = global_truth_value && result.truth_result;
     } else if (rule_set.mode == "any") {
@@ -681,8 +692,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 13",
-    // alone ageing patient with difficulties to breath
+    name: "Patient 13: alone age patient with difficulties to breath",
     parameters: {
       age: 68,
       heavy_comorbidities_count: 0,
@@ -702,8 +712,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 14",
-    // chest pain with difficulties to breath
+    name: "Patient 14: chest pain with difficulties to breath",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -721,9 +730,70 @@ const test_data = [
       alone_at_home: false,
       agreed_containment: true
     }
+  },
+  {
+    name: "Patient 15: patient with a sudden worsening of dyspnea at t+12h",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      previous_breathing_difficulty_borg_scale: 1.0,
+      breathing_difficulty_borg_scale: 4.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 16: patient with a moderated worsening of dyspnea at t+12h",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      previous_breathing_difficulty_borg_scale: 2.0,
+      breathing_difficulty_borg_scale: 4.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 17: patient with a moderated worsening of dyspnea at t+12h but above the treshold of 5.0",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      previous_breathing_difficulty_borg_scale: 3.0,
+      breathing_difficulty_borg_scale: 5.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
   }
-  // !!! analysis of two records to detect high_breathing_difficulty_borg_scale_variation
-  // yet to be implemented.
 ];
 
 
