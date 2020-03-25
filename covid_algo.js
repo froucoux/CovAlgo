@@ -104,6 +104,12 @@ const green_rule_set = {
       },
       arguments: ["heavy_comorbidities_count"]
     },
+    {
+      predicate: (hydratation) => {
+        return hydratation;
+      },
+      arguments: ["hydratation"]
+    }
   ]
 };
 
@@ -535,8 +541,7 @@ let display_evaluation = (evaluation, colored, translated) => {
  */
 const test_data = [
   {
-    // Everything is fine
-    name: "Patient 1",
+    name: "Patient 1 : tout va bien",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -556,7 +561,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 2",
+    name: "Patient 2 : douleurs thoraciques récentes",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 0,
@@ -576,7 +581,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 3",
+    name: "Patient 3 : âge >= 65, saturation et frissons",
     parameters: {
       age: 67,
       heavy_comorbidities_count: 0,
