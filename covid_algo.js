@@ -388,7 +388,7 @@ let evaluate_all_sets = (patient) => {
 
 
 /*
- * Append an color code to the text according to the risk category.
+ * Append a color code to the text according to the risk category.
  * Can be disabled for terminals that do not support color codes.
  */
 let append_color_code = (text, category, enabled) => {
@@ -415,7 +415,11 @@ let append_color_code = (text, category, enabled) => {
 };
 
 
-let translate_category = (category_text, translated) => {
+/*
+ * French translation of the categories and values
+ */
+let translate_category = (category, translated) => {
+  let category_text = category + "";
   let translated_category = "";
   if (translated) {
     if (category_text.includes("green")) {
@@ -532,7 +536,7 @@ let display_evaluation = (evaluation, colored, translated) => {
     if (colored) {
       console.log("   " + translate_parameter(parameter, translated) + " = " + translate_category(append_color_code(value, category, colored), translated));
     } else {
-      console.log("   " + translate_parameter(parameter, translated) + " = " + value + " : " + translate_category(category, translated));
+      console.log("   " + translate_parameter(parameter, translated) + " = " + translate_category(value, translated) + " : " + translate_category(category, translated));
     }
   }
   console.log("--------------------------------------");
@@ -624,7 +628,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 5 : présence d'au moins unecomorbidité lourde",
+    name: "Patient 5 : présence d'au moins une comorbidité lourde",
     parameters: {
       age: 54,
       heavy_comorbidities_count: 1,
@@ -644,7 +648,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 6 : non catégorisable car absence de mesure de t° malgré une majorité de bon paramètres",
+    name: "Patient 6 : non-catégorisable car absence de mesure de t° malgré une majorité de bon paramètres",
     // Check unknown data
     parameters: {
       age: 54,
