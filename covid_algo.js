@@ -147,10 +147,10 @@ const orange_rule_set = {
       arguments: ["heartbeats_per_minute"]
     },
     {
-      predicate: (hydratation, alone_at_home) => {
-        return !hydratation && alone_at_home;
+      predicate: (hydratation) => {
+        return !hydratation;
       },
-      arguments: ["hydratation", "alone_at_home"]
+      arguments: ["hydratation"]
     },
     {
       predicate: (digestive_disorders, alone_at_home) => {
@@ -566,7 +566,7 @@ const test_data = [
       respiratory_rate_in_cycles_per_minute: 20,
       spo2: 98,
       consciousness: 1,
-      hydratation: false,
+      hydratation: true,
       digestive_disorders: true,
       recent_cold_chill: false,
       recent_chest_pain: true,
@@ -647,7 +647,7 @@ const test_data = [
       respiratory_rate_in_cycles_per_minute: 20,
       spo2: 98,
       consciousness: 1,
-      hydratation: false,
+      hydratation: true,
       digestive_disorders: true,
       recent_cold_chill: false,
       recent_chest_pain: false,
@@ -667,7 +667,7 @@ const test_data = [
       respiratory_rate_in_cycles_per_minute: 22,
       spo2: 94,
       consciousness: 1,
-      hydratation: false,
+      hydratation: true,
       digestive_disorders: true,
       recent_cold_chill: true,
       recent_chest_pain: false,
@@ -688,7 +688,7 @@ const test_data = [
       respiratory_rate_in_cycles_per_minute: 20,
       spo2: 98,
       consciousness: 1,
-      hydratation: false,
+      hydratation: true,
       digestive_disorders: true,
       recent_cold_chill: true,
       recent_chest_pain: false,
@@ -893,6 +893,26 @@ const test_data = [
       spo2: 98,
       consciousness: 2,
       hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 19 : une difficulté à s'hydrater ou une oligurie-anurie font basculer le patient en orange",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: false,
       digestive_disorders: false,
       recent_cold_chill: false,
       recent_chest_pain: false,
