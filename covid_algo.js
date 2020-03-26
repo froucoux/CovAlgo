@@ -38,12 +38,6 @@ const green_rule_set = {
   mode: "all",
   rules: [
     {
-      predicate: (recent_cold_chill) => {
-        return !recent_cold_chill;
-      },
-      arguments: ["recent_cold_chill"]
-    },
-    {
       predicate: (heartbeats_per_minute) => {
         return (typeof heartbeats_per_minute !== 'undefined') && heartbeats_per_minute <= 110;
       },
@@ -127,12 +121,6 @@ const orange_rule_set = {
         return recent_chest_pain;
       },
       arguments: ["recent_chest_pain"]
-    },
-    {
-      predicate: (recent_cold_chill) => {
-        return recent_cold_chill;
-      },
-      arguments: ["recent_cold_chill"]
     },
     {
       predicate: (spo2) => {
