@@ -81,12 +81,6 @@ const green_rule_set = {
       arguments: ["consciousness"]
     },
     {
-      predicate: (recent_chest_pain) => {
-        return !recent_chest_pain;
-      },
-      arguments: ["recent_chest_pain"]
-    },
-    {
       predicate: (heavy_comorbidities_count) => {
         return heavy_comorbidities_count == 0;
       },
@@ -115,12 +109,6 @@ const orange_rule_set = {
         return age >= 65;
       },
       arguments: ["age"]
-    },
-    {
-      predicate: (recent_chest_pain) => {
-        return recent_chest_pain;
-      },
-      arguments: ["recent_chest_pain"]
     },
     {
       predicate: (spo2) => {
@@ -590,7 +578,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 4 : quelques paramètres oranges",
+    name: "Patient 4 : âge et saturation en orange",
     parameters: {
       age: 67,
       heavy_comorbidities_count: 0,
