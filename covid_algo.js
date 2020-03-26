@@ -57,7 +57,7 @@ const green_rule_set = {
     },
     {
       predicate: (breathing_difficulty_borg_scale) => {
-        return breathing_difficulty_borg_scale <= 1.0;
+        return breathing_difficulty_borg_scale <= 2.0;
       },
       arguments: ["breathing_difficulty_borg_scale"]
     },
@@ -642,7 +642,7 @@ const test_data = [
     }
   },
   {
-    name: "Patient 6 : non-catégorisable car absence de mesure de t° malgré une majorité de bon paramètres",
+    name: "Patient 6 : absence de mesure de t° et une majorité de bon paramètres",
     // Check unknown data
     parameters: {
       age: 54,
