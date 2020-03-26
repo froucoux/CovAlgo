@@ -38,12 +38,6 @@ const green_rule_set = {
   mode: "all",
   rules: [
     {
-      predicate: (body_temperature) => {
-        return (typeof body_temperature !== 'undefined') && body_temperature <= 39.0;
-      },
-      arguments: ["body_temperature"]
-    },
-    {
       predicate: (recent_cold_chill) => {
         return !recent_cold_chill;
       },
@@ -923,6 +917,26 @@ const test_data = [
       spo2: 98,
       consciousness: 1,
       hydratation: false,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 20 : la température non mesurée n'empêche pas la classification en vert.",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: undefined,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
       digestive_disorders: false,
       recent_cold_chill: false,
       recent_chest_pain: false,
