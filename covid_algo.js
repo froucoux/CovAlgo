@@ -38,29 +38,10 @@ const green_rule_set = {
   mode: "all",
   rules: [
     {
-      predicate: (heartbeats_per_minute) => {
-        return (typeof heartbeats_per_minute !== 'undefined') && heartbeats_per_minute <= 110;
-      },
-      arguments: ["heartbeats_per_minute"]
-    },
-    {
-      predicate: (spo2) => {
-        return (typeof spo2 !== 'undefined') && spo2 >= 96;
-      },
-      arguments: ["spo2"]
-    },
-    {
       predicate: (breathing_difficulty_borg_scale) => {
         return breathing_difficulty_borg_scale <= 2.0;
       },
       arguments: ["breathing_difficulty_borg_scale"]
-    },
-    {
-      predicate: (respiratory_rate_in_cycles_per_minute) => {
-        return (typeof respiratory_rate_in_cycles_per_minute !== 'undefined')
-          && respiratory_rate_in_cycles_per_minute <= 21;
-      },
-      arguments: ["respiratory_rate_in_cycles_per_minute"]
     },
     {
       predicate: (agreed_containment) => {
@@ -910,6 +891,66 @@ const test_data = [
       breathing_difficulty_borg_scale: 1.0,
       heartbeats_per_minute: 92,
       respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 21 : fréquence cardiaque non-mesurée",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: undefined,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 22 : spo2 non-mesurée",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: undefined,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 23 : fréquence respiratoire non-mesurée",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 38.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: undefined,
       spo2: 98,
       consciousness: 1,
       hydratation: true,
