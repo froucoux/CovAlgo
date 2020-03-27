@@ -173,10 +173,20 @@ const red_rule_set = {
   mode: "any",
   rules: [
     {
-      predicate: (body_temperature) => {
-        return (typeof body_temperature !== 'undefined') && body_temperature > 40.0;
+      predicate: (body_temperature, hydratation) => {
+        return (typeof body_temperature !== 'undefined')
+          && body_temperature > 40.0
+          && !hydratation;
       },
-      arguments: ["body_temperature"]
+      arguments: ["body_temperature", "hydratation"]
+    },
+    {
+      predicate: (body_temperature, age) => {
+        return (typeof body_temperature !== 'undefined')
+          && body_temperature > 40.0
+          && age >= 65;
+      },
+      arguments: ["body_temperature", "age"]
     },
     {
       predicate: (heartbeats_per_minute) => {
@@ -954,6 +964,66 @@ const test_data = [
       spo2: 98,
       consciousness: 1,
       hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 24 : âgé avec plus 40°C de fièvre",
+    parameters: {
+      age: 68,
+      heavy_comorbidities_count: 0,
+      body_temperature: 40.6,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: true,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 25 : à risque de déshydratation avec plus de 40°C de fièvre",
+    parameters: {
+      age: 54,
+      heavy_comorbidities_count: 0,
+      body_temperature: 40.1,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: false,
+      digestive_disorders: false,
+      recent_cold_chill: false,
+      recent_chest_pain: false,
+      anosmia_ageusia: false,
+      alone_at_home: false,
+      agreed_containment: true
+    }
+  },
+  {
+    name: "Patient 26 : âgé, à risque de déshydratation avec plus de 40°C de fièvre",
+    parameters: {
+      age: 66,
+      heavy_comorbidities_count: 0,
+      body_temperature: 40.1,
+      breathing_difficulty_borg_scale: 1.0,
+      heartbeats_per_minute: 92,
+      respiratory_rate_in_cycles_per_minute: 20,
+      spo2: 98,
+      consciousness: 1,
+      hydratation: false,
       digestive_disorders: false,
       recent_cold_chill: false,
       recent_chest_pain: false,
